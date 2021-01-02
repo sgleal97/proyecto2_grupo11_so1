@@ -2,8 +2,9 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
+//const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
+
 
 const Infectado = require('../models/infectado')
 //const Contador = require('../models/contador')
@@ -19,7 +20,7 @@ var collection;
 
 const urlmongo = "mongodb+srv://sopes1:manager1@dbso1proyecto2.inolr.mongodb.net/covid?retryWrites=true&w=majority"
 
-app.listen( 3000, () => {
+app.listen( 3001, () => {
 	console.log("Server Running");
 	MongoClient.connect(urlmongo, {useNewUrlParser: true}, (error, client) => {
 		if(error){
@@ -31,6 +32,25 @@ app.listen( 3000, () => {
 	});
 });
 
+app.use(function (req, res, next) {
+
+        // Website you wish to allow to connect
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    
+        // Request methods you wish to allow
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    
+        // Request headers you wish to allow
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    
+        // Set to true if you need the website to include cookies in the requests sent
+        // to the API (e.g. in case you use sessions)
+        res.setHeader('Access-Control-Allow-Credentials', true);
+    
+        // Pass to next layer of middleware
+        next();
+    });
+
 //Informacion por estado
 app.get("/departamento", (req, res) => {
     collection.find({}).toArray( (err, result) => {
@@ -41,14 +61,14 @@ app.get("/departamento", (req, res) => {
             let tempJson = {};
             let tempArr = [];
             result.forEach( element => {
-                    if( ! (element['state'] in tempJson) ){
-                            tempJson[element['state']] = 1;
+                    if( ! (element['location'] in tempJson) ){
+                            tempJson[element['location']] = 1;
                     } else {
-                            tempJson[element['state']] += 1;
+                            tempJson[element['location']] += 1;
                     }
             });
             for ( const property in tempJson ) {
-                    tempArr.push(new Object({"state":property,"cantidad":tempJson[property]}));
+                    tempArr.push(new Object({"departamento":property,"cantidad":tempJson[property]}));
             }
             tempArr.sort( (a,b) => (a.cantidad < b.cantidad) ? 1 : -1 );
             res.send(tempArr)
@@ -89,14 +109,14 @@ app.get("/state", (req, res) => {
                 let tempJson = {};
                 let tempArr = [];
                 result.forEach( element => {
-                        if( ! (element['location'] in tempJson) ){
-                                tempJson[element['location']] = 1;
+                        if( ! (element['state'] in tempJson) ){
+                                tempJson[element['state']] = 1;
                         } else {
-                                tempJson[element['location']] += 1;
+                                tempJson[element['state']] += 1;
                         }
                 });
                 for ( const property in tempJson ) {
-                        tempArr.push(new Object({"departamento":property,"cantidad":tempJson[property]}));
+                        tempArr.push(new Object({"state":property,"cantidad":tempJson[property]}));
                 }
                 tempArr.sort( (a,b) => (a.cantidad < b.cantidad) ? 1 : -1 );
                 res.send(tempArr)
