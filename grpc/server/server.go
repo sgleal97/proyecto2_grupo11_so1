@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 
+	"github.com/go-redis/redis/v8"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/grpc"
@@ -21,10 +22,13 @@ type casoJSON struct {
 	State         string `json: "state"`
 }
 
+var ctx = context.Background()
+
 const (
-	port   = ":50051"
-	host   = "localhost"
-	portdb = "27017"
+	port      = ":50051"
+	host      = "localhost"
+	portdb    = "27017"
+	hostredis = "34.121.47.126"
 )
 
 // server is used to implement helloworld.GreeterServer.
@@ -36,6 +40,19 @@ type server struct {
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
 	log.Printf("Received: %v", in.GetName())
 
+	//************************************************************REDIS
+
+	//Conexion a Redis
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "34.121.47.126:6379",
+		Password: "redisgrupo11",
+		DB:       0,
+	})
+	//--> lo insertamos en redis como un string del json en una lista
+	key := "listacasos"
+	rdb.LPush(ctx, key, in.GetName())
+
+	//************************************************************MONGO
 	//Deserializar json recivido
 	data := in.GetName()
 	info := casoJSON{}

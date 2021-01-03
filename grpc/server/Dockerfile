@@ -21,6 +21,9 @@ RUN go get google.golang.org/genproto/googleapis/rpc/status
 RUN go get google.golang.org/protobuf/cmd/protoc-gen-go
 RUN go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
 RUN go get go.mongodb.org/mongo-driver/mongo
+# Probar
+RUN go mod init github.com/sgleal97/proyecto2_grupo11_so1
+RUN go get github.com/go-redis/redis/v8
 
 
 # Copy the source from the current directory to the Working Directory inside the container
