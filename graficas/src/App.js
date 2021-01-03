@@ -11,19 +11,11 @@ export default class App extends Component{
       super(props);
       this.urlG = "localhost";
       this.state = {
-            arregloRamA : [0,0,0,0,0],
-            arregloRamB : [0,0,0,0,0],
             arregloDepartamentos : [],
             arregloCantidad : [],
-            ramA:0,
-            ramB:0,
-            ramC:0,
             pdepartamento: [],
             pcantidad: []
       }
-      this.RamTotal = 0;
-      this.RamLibre = 0;
-      this.RamUsada = 0;
       this.PDepartamento = [];
       this.PCantidad = [];
       this.ArregloDepartamentos = [];
@@ -39,7 +31,7 @@ export default class App extends Component{
           this.RamLibre = data.Total-data.Libre;
           this.RamUsada = data.Usada;
       })
-      var arregloRamA1 = this.state.arregloRamA;
+      /*var arregloRamA1 = this.state.arregloRamA;
       arregloRamA1[4] = arregloRamA1[3];
       arregloRamA1[3] = arregloRamA1[2];
       arregloRamA1[2] = arregloRamA1[1];
@@ -48,7 +40,7 @@ export default class App extends Component{
       var result = arregloRamA1.map((arregloRamA1)=>arregloRamA1*1);
       this.setState({arregloRamA:result, ramA: arregloRamA1[0]}); 
       this.setState({arregloRamA:result, ramB: this.RamTotal}); 
-      this.setState({arregloRamA:result, ramC: this.RamLibre}); 
+      this.setState({arregloRamA:result, ramC: this.RamLibre});*/
   }
 
   async USAGE_DEPARTAMENTOS(){
@@ -114,8 +106,8 @@ export default class App extends Component{
                   </Navbar>
                   <Switch>
                       <Route path= "/departamento">
-                          <Graficas   ramA={this.state.ramA} ramB={this.state.ramB} ramC={this.state.ramC} arregloDepartamentos={this.state.arregloDepartamentos}
-                                      arregloCantidad={this.state.arregloCantidad} arregloRamA={this.state.arregloRamA} arregloRamB = {this.state.arregloRamB}/>
+                          <Graficas   arregloDepartamentos={this.state.arregloDepartamentos}
+                                      arregloCantidad={this.state.arregloCantidad}/>
                       </Route>
                       <Route path="/rango">
                           <Rango/>
