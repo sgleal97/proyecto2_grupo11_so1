@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Graficas from './components/Graficas';
-import Datos from './components/Datos';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Navbar from './components/Navbar';
 import Procesos from './components/Procesos';
+import Rango from './components/Rango';
 
 export default class App extends Component{
 
@@ -19,9 +19,7 @@ export default class App extends Component{
             ramB:0,
             ramC:0,
             pdepartamento: [],
-            pcantidad: [],
-            DatosA: [{"autor":"Sergio", "nota":"RAM"}],
-            DatosB: [{"autor":"Sergio", "nota":"CPU"}]
+            pcantidad: []
       }
       this.RamTotal = 0;
       this.RamLibre = 0;
@@ -108,8 +106,6 @@ export default class App extends Component{
     }
   }
 
-  //setDepartamentos(Datos = )
-
   render(){
       return(
           <Router>
@@ -117,16 +113,15 @@ export default class App extends Component{
                   <Navbar >
                   </Navbar>
                   <Switch>
-                      <Route path= "/charts">
+                      <Route path= "/departamento">
                           <Graficas   ramA={this.state.ramA} ramB={this.state.ramB} ramC={this.state.ramC} arregloDepartamentos={this.state.arregloDepartamentos}
                                       arregloCantidad={this.state.arregloCantidad} arregloRamA={this.state.arregloRamA} arregloRamB = {this.state.arregloRamB}/>
                       </Route>
-                      <Route path="/dataA">
-                          <Datos data={this.state.DatosA} name="A"/>
+                      <Route path="/rango">
+                          <Rango/>
                       </Route>
-                      <Route path="/procesos">
-                          <Procesos data={this.state.DatosB} pdepartamento={this.state.pdepartamento} pcantidad={this.state.pcantidad} />
-                          
+                      <Route path="/top">
+                          <Procesos pdepartamento={this.state.pdepartamento} pcantidad={this.state.pcantidad} />
                       </Route>
                   </Switch>
               </div>

@@ -6,17 +6,17 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var dataPoints =[];
 
 
-class Graficas extends Component{
+class Rango extends Component{
     
 
     render(){
         const options = {
 			theme: "light2",
 			title: {
-				text: "Cantidad de Casos por Departamento"
+				text: "Cantidad de Casos por Rango de Edad"
 			},
 			data: [{
-				type: "pie",
+				type: "column",
 				dataPoints: dataPoints
 			}]
 		}
@@ -32,14 +32,14 @@ class Graficas extends Component{
 
     componentDidMount(){
 		var chart = this.chart;
-		fetch('http://localhost:3001/departamento')
+		fetch('http://localhost:3001/edad')
 		.then(function(response) {
 			return response.json();
 		})
 		.then(function(data) {
 			for (var i = 0; i < data.length; i++) {
 				dataPoints.push({
-					label: data[i].departamento,
+					label: data[i].rango_edades,
 					y: data[i].cantidad
 				});
 			}
@@ -49,4 +49,4 @@ class Graficas extends Component{
 
 }
 
-export default Graficas
+export default Rango
