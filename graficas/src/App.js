@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Navbar from './components/Navbar';
 import Procesos from './components/Procesos';
 import Rango from './components/Rango';
+import Ultimos  from "./components/Ultimos";
+
 
 export default class App extends Component{
 
@@ -68,12 +70,16 @@ export default class App extends Component{
         this.setState({pcantidad: this.PCantidad});
     }
 
+   
+
   componentWillMount(){
       setInterval(() => {
           //this.USAGE_RAM();
           this.USAGE_DEPARTAMENTOS();
           this.USAGE_TOPDEPARTAMENTOS();
+      
       }, 5000);
+
   }
 
   getData(Padre = []) {
@@ -102,8 +108,9 @@ export default class App extends Component{
       return(
           <Router>
               <div className="App">
-                  <Navbar >
-                  </Navbar>
+               <Navbar>
+                   
+               </Navbar>
                   <Switch>
                       <Route path= "/departamento">
                           <Graficas   arregloDepartamentos={this.state.arregloDepartamentos}
@@ -114,6 +121,9 @@ export default class App extends Component{
                       </Route>
                       <Route path="/top">
                           <Procesos pdepartamento={this.state.pdepartamento} pcantidad={this.state.pcantidad} />
+                      </Route>
+                      <Route path="/ultimos5">                       
+                          <Ultimos/>
                       </Route>
                   </Switch>
               </div>
