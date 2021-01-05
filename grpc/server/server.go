@@ -44,13 +44,14 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 
 	//Conexion a Redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "34.121.47.126:6379",
+		Addr:     "130.211.232.229:6379",
 		Password: "redisgrupo11",
-		DB:       0,
+		DB:       0, // default DB
 	})
-	//--> lo insertamos en redis como un string del json en una lista
+
 	key := "listacasos"
 	rdb.LPush(ctx, key, in.GetName())
+	//--> lo insertamos en redis como un string del json en una lista
 
 	//************************************************************MONGO
 	//Deserializar json recivido

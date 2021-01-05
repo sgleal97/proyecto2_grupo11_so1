@@ -3,6 +3,7 @@ module github.com/sgleal97/proyecto2_grupo11_so1
 go 1.15
 
 require (
+	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redis/redis/v8 v8.4.4
 	go.mongodb.org/mongo-driver v1.4.4
 	google.golang.org/grpc v1.34.0

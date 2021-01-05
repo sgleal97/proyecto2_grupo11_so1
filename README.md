@@ -12,4 +12,4 @@
 ### NodeJS
 
 - sudo docker build -t nodeapp .
-- sudo docker run -p 3000:3000 -d nodeapp
+- sudo docker run -it -d -p 3001:3001 --name=node-app node-app
