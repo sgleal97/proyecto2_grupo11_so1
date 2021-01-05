@@ -13,3 +13,13 @@
 
 - sudo docker build -t nodeapp .
 - sudo docker run -p 3000:3000 -d nodeapp
+
+### ReactJS
+
+- sudo docker build -t react-app .
+- sudo docker run -it -d -p 3000:3000 --name=react-app react-app
+
+### Subir imagen docker
+
+- sudo docker tag image usuario/image
+- sudo docker push usuario/image
