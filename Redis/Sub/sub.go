@@ -35,8 +35,8 @@ func main() {
 	
 	// --> creacion de la conexion a redis 
 	rdb := redis.NewClient(&redis.Options{
-        Addr:     "localhost:6379",
-        Password: "",
+        Addr:     "130.211.232.229:6379",
+        Password: "redisgrupo11",
         DB:       0,  // default DB
 	})
 

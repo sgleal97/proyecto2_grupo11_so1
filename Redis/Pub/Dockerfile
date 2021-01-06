@@ -13,6 +13,6 @@ RUN go get google.golang.org/protobuf/cmd/protoc-gen-go
 
 COPY . .
 
-EXPOSE 4200
+EXPOSE 5000
 
 CMD ["go", "run", "pub.go"]

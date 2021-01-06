@@ -24,7 +24,7 @@ type caso struct {
 
 var ctx = context.Background()
 
-func PublishCase(w http.ResponseWriter, r *http.Request) {
+func NewCase(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
@@ -38,8 +38,8 @@ func PublishCase(w http.ResponseWriter, r *http.Request) {
 	
 	//--> conexion con redis
 	rdb := redis.NewClient(&redis.Options{
-        Addr:     "localhost:6379",
-        Password: "",
+        Addr:     "130.211.232.229:6379",
+        Password: "redisgrupo11",
         DB:       0,  // default DB
 	})
 	
@@ -52,7 +52,7 @@ func PublishCase(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/pub", PublishCase).Methods("POST")
-	log.Fatal(http.ListenAndServe(":4200", router))
+	router.HandleFunc("/NewCase", NewCase).Methods("POST")
+	log.Fatal(http.ListenAndServe(":5000", router))
 }
 
