@@ -25,7 +25,7 @@ type caso struct {
 }
 
 const (
-	address     = "localhost:50051"
+	address     = "blue2:50051"
 	defaultName = "world"
 )
 
@@ -43,7 +43,7 @@ func NewCase(w http.ResponseWriter, r *http.Request) {
 	//Metodo gRPC
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Printf("did not connect: %v", err)
 	}
 	defer conn.Close()
 	c := pb.NewGreeterClient(conn)
@@ -53,7 +53,7 @@ func NewCase(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	ra, err := c.SayHello(ctx, &pb.HelloRequest{Name: jsonstr})
 	if err != nil {
-		log.Fatalf("could not greet: %v", err)
+		log.Printf("could not greet: %v", err)
 	}
 	log.Printf("Greeting: %s", ra.GetMessage())
 }
@@ -66,5 +66,5 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", Inicio).Methods("GET")
 	router.HandleFunc("/NewCase", NewCase).Methods("POST")
-	log.Fatal(http.ListenAndServe(":5000", router))
+	http.ListenAndServe(":5000", router)
 }

@@ -25,10 +25,7 @@ type casoJSON struct {
 var ctx = context.Background()
 
 const (
-	port      = ":50051"
-	host      = "localhost"
-	portdb    = "27017"
-	hostredis = "34.121.47.126"
+	port = ":50051"
 )
 
 // server is used to implement helloworld.GreeterServer.
@@ -64,17 +61,17 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 	clientOpts := options.Client().ApplyURI(fmt.Sprintf("mongodb+srv://sopes1:manager1@dbso1proyecto2.inolr.mongodb.net/covid?retryWrites=true&w=majority"))
 	client, err := mongo.Connect(context.TODO(), clientOpts)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error: %V", err)
 	}
 	//Check the conection
 	err = client.Ping(context.TODO(), nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error: %V", err)
 	}
 	collection := client.Database("covid").Collection("casoJSON")
 	insertResult, err := collection.InsertOne(context.TODO(), info)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error: %V", err)
 	}
 	fmt.Println("Death Star had been inserted: ", insertResult)
 
@@ -84,11 +81,11 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Printf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
 	pb.RegisterGreeterServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+		log.Printf("failed to serve: %v", err)
 	}
 }
