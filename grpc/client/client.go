@@ -25,7 +25,7 @@ type caso struct {
 }
 
 const (
-	address     = "blue2:50051"
+	address     = "servergrpc:50051"
 	defaultName = "world"
 )
 

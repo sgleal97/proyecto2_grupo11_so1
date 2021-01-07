@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 var database;
 var collection;
 
-const urlmongo = "mongodb+srv://sopes1:manager1@dbso1proyecto2.inolr.mongodb.net/covid?retryWrites=true&w=majority"
+const urlmongo = "mongodb+srv://sopes1:manager1@clustersopes.rcjoi.mongodb.net/covid?retryWrites=true&w=majority"
 
 app.listen( 3001, () => {
 	console.log("Server Running");
